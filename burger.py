@@ -19,17 +19,17 @@ lotteria_menu_list = [
 ]
 
 # 카테고리별 메뉴 정리
-menu_by_category = {}
+lotteria_menu_by_category = {}
 
 for item in lotteria_menu_list:
     category = item["카테고리"]
-    if category not in menu_by_category:
-        menu_by_category[category] = []
-    menu_by_category[category].append(item)
+    if category not in lotteria_menu_by_category:
+        lotteria_menu_by_category[category] = []
+    lotteria_menu_by_category[category].append(item)
 
 # 카테고리별 출력
 print("\n📌 롯데리아 버거 카테고리별 메뉴:")
-for category, items in menu_by_category.items():
+for category, items in lotteria_menu_by_category.items():
     print(f"\n🗂️ {category}:")
     for idx, item in enumerate(items, 1):
         print(f"  {idx}. 메뉴: {item['메뉴 이름']}, 가격: {item['가격']}")
