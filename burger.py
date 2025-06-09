@@ -28,11 +28,11 @@ for item in lotteria_menu_list:
     lotteria_menu_by_category[category].append(item)
 
 # 사용자 입력
-user_input = input("1. 전체 메뉴"
-                   " 2. 롯데리아 메뉴"
-                   " 3. 맥도날드 메뉴"
-                   " 4. 버거킹 메뉴"
-                   " 5. 프랭크 버거 메뉴"
+user_input = input("1. 전체 버거 메뉴"
+                   " 2. 롯데리아 버거 메뉴"
+                   " 3. 맥도날드 버거 메뉴"
+                   " 4. 버거킹 버거 메뉴"
+                   " 5. 프랭크 버거 버거 메뉴"
                     " 중에서 원하시는 메뉴를 입력하세요 : ")
 
 # 사용자가 2를 입력한 경우 메뉴 출력
