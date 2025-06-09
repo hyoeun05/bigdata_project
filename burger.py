@@ -27,9 +27,20 @@ for item in lotteria_menu_list:
         lotteria_menu_by_category[category] = []
     lotteria_menu_by_category[category].append(item)
 
-# 카테고리별 출력
-print("\n📌 롯데리아 버거 카테고리별 메뉴:")
-for category, items in lotteria_menu_by_category.items():
-    print(f"\n🗂️ {category}:")
-    for idx, item in enumerate(items, 1):
-        print(f"  {idx}. 메뉴: {item['메뉴 이름']}, 가격: {item['가격']}")
+# 사용자 입력
+user_input = input("1. 전체 메뉴"
+                   " 2. 롯데리아 메뉴"
+                   " 3. 맥도날드 메뉴"
+                   " 4. 버거킹 메뉴"
+                   " 5. 프랭크 버거 메뉴"
+                    " 중에서 원하시는 메뉴를 입력하세요 : ")
+
+# 사용자가 2를 입력한 경우 메뉴 출력
+if user_input == "2":
+    print("\n📌 롯데리아 버거 카테고리별 메뉴:")
+    for category, items in lotteria_menu_by_category.items():
+        print(f"\n🗂️ {category}:")
+        for idx, item in enumerate(items, 1):
+            print(f"  {idx}. 메뉴: {item['메뉴 이름']}, 가격: {item['가격']}")
+else:
+    print("\n❌ 올바른 입력이 아닙니다. 프로그램을 종료합니다.")
