@@ -10,7 +10,7 @@ mcdonald_menu_list = [
     {"메뉴 이름": "불고기 버거", "가격": "3,600원", "메인 재료": "고기패티", "카테고리": "고기 패티"},
     {"메뉴 이름": "더블 불고기 버거", "가격": "4,500원", "메인 재료": "고기패티", "카테고리": "고기 패티"},
     {"메뉴 이름": "맥치킨", "가격": "3,500원", "메인 재료": "치킨패티", "카테고리": "치킨 패티"},
-    {"메뉴 이름": "맥치킨 모짜렐라", "가격": "5,000원", "메인 재료": "치킨패티, 치즈패티", "카테고리": "치킨 패티, 치즈패티"},
+    {"메뉴 이름": "맥치킨 모짜렐라", "가격": "5,000원", "메인 재료": "치킨패티, 치즈패티", "카테고리": "치킨 패티, 치즈 패티"},
     {"메뉴 이름": "1955 버거", "가격": "6,400원", "메인 재료": "고기패티", "카테고리": "고기 패티"},
     {"메뉴 이름": "맥크리스피 클래식 버거", "가격": "5,900원", "메인 재료": "치킨패티", "카테고리": "치킨 패티"},
     {"메뉴 이름": "맥크리스피 디럭스 버거", "가격": "6,800원", "메인 재료": "치킨패티", "카테고리": "치킨 패티"},
@@ -151,14 +151,15 @@ all_burgers = [
 categories = list(set(item["카테고리"] for item in all_burgers))
 
 # 사용자 입력
-user_input = input("1. 전체 버거 메뉴"
-                   " 2. 롯데리아 버거 메뉴"
-                   " 3. 맥도날드 버거 메뉴"
-                   " 4. 버거킹 버거 메뉴"
-                   " 5. 프랭크 버거 버거 메뉴"
-                   " 6. 랜덤 버거 추천"
-                   " 7. 선택한 카테고리 랜덤 버거 추천"
-                   " 중에서 원하시는 메뉴를 입력하세요 : ")
+user_input = input("1. 전체 버거 메뉴\n"
+                   "2. 롯데리아 버거 메뉴\n"
+                   "3. 맥도날드 버거 메뉴\n"
+                   "4. 버거킹 버거 메뉴\n"
+                   "5. 프랭크 버거 메뉴\n"
+                   "6. 랜덤 버거 추천\n"
+                   "7. 카테고리별 브랜드 메뉴 보기\n"
+                   "8. 선택한 카테고리 랜덤 버거 추천\n"
+                   "여기에서 원하시는 메뉴를 입력하세요: ")
 
 
 # 사용자가 입력한 값에 따라 메뉴 출력
@@ -203,7 +204,7 @@ elif user_input == "6":
     random_burger = random.choice(all_burgers)
     print(f"\n🎉 랜덤 추천 버거: {random_burger['브랜드']}의 {random_burger['메뉴 이름']}, 가격: {random_burger['가격']}")
 
-elif user_input == "7":
+elif user_input == "8":
     print("\n📌 카테고리 리스트:")
     for idx, category in enumerate(categories, 1):
         print(f"{idx}. {category}")
@@ -224,6 +225,37 @@ elif user_input == "7":
             print("\n❌ 해당 카테고리에 맞는 버거가 없습니다. 다시 시도해 주세요.")
     else:
         print("\n❌ 올바른 입력이 아닙니다. 다시 시도해 주세요.")
+
+elif user_input == "7":
+    print("\n📌 선택할 수 있는 카테고리:")
+    for idx, category in enumerate(categories, 1):
+        print(f"{idx}. {category}")
+
+    category_input = input("\n원하는 카테고리 번호를 입력하세요: ")
+    # 번호 입력 시 카테고리 선택
+    if category_input.isdigit() and 1 <= int(category_input) <= len(categories):
+        selected_category = categories[int(category_input) - 1]
+
+        # 선택된 카테고리의 메뉴를 브랜드별로 정리
+        brand_menus = {}
+        for burger in all_burgers:
+            if selected_category in burger["카테고리"]:
+                brand = burger["브랜드"]
+                if brand not in brand_menus:
+                    brand_menus[brand] = []
+                brand_menus[brand].append(burger)
+
+        if brand_menus:
+            print(f"\n📌 '{selected_category}' 카테고리의 브랜드별 메뉴:")
+            for brand, burgers in brand_menus.items():
+                print(f"\n🛒 {brand}:")
+                for idx, burger in enumerate(burgers, 1):
+                    print(f"  {idx}. 메뉴: {burger['메뉴 이름']}, 가격: {burger['가격']}")
+        else:
+            print("\n❌ 해당 카테고리에 맞는 버거가 없습니다. 다시 시도해 주세요.")
+    else:
+        print("\n❌ 올바른 입력이 아닙니다. 다시 시도해 주세요.")
+
 
 else:
     print("\n❌ 올바른 입력이 아닙니다. 프로그램을 종료합니다.")
