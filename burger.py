@@ -148,7 +148,7 @@ all_burgers = [
 ]
 
 # 카테고리 리스트 추출
-categories = set(item["카테고리"] for item in all_burgers) 
+categories = list(set(item["카테고리"] for item in all_burgers))
 
 # 사용자 입력
 user_input = input("1. 전체 버거 메뉴"
@@ -208,16 +208,22 @@ elif user_input == "7":
     for idx, category in enumerate(categories, 1):
         print(f"{idx}. {category}")
 
-    category_input = input("\n원하는 카테고리를 입력하세요: ")
+    category_input = input("\n원하는 카테고리 번호를 입력하세요: ")
 
-    # 선택된 카테고리의 버거 리스트 필터링
-    filtered_burgers = [burger for burger in all_burgers if category_input in burger["카테고리"]]
+    # 번호 입력 시 카테고리 선택
+    if category_input.isdigit() and 1 <= int(category_input) <= len(categories):
+        selected_category = categories[int(category_input) - 1]
 
-    if filtered_burgers:
-        random_burger = random.choice(filtered_burgers)
-        print(f"\n🎉 랜덤 추천 버거: {random_burger['메뉴 이름']} ({random_burger['브랜드']}), 가격: {random_burger['가격']}")
+        # 선택된 카테고리의 버거 리스트 필터링
+        filtered_burgers = [burger for burger in all_burgers if selected_category in burger["카테고리"]]
+
+        if filtered_burgers:
+            random_burger = random.choice(filtered_burgers)
+            print(f"\n🎉 랜덤 추천 버거: {random_burger['메뉴 이름']} ({random_burger['브랜드']}), 가격: {random_burger['가격']}")
+        else:
+            print("\n❌ 해당 카테고리에 맞는 버거가 없습니다. 다시 시도해 주세요.")
     else:
-        print("\n❌ 해당 카테고리에 맞는 버거가 없습니다. 다시 시도해 주세요.")
+        print("\n❌ 올바른 입력이 아닙니다. 다시 시도해 주세요.")
 
 else:
     print("\n❌ 올바른 입력이 아닙니다. 프로그램을 종료합니다.")
