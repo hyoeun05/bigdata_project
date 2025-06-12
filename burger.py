@@ -134,16 +134,44 @@ for item in frankburger_menu_list:
         frankburger_menu_by_category[category] = []
     frankburger_menu_by_category[category].append(item)
 
+import random
+
+# 전체 버거 리스트 (각 브랜드 정보 포함)
+all_burgers = [
+    {"브랜드": "맥도날드", **item} for item in mcdonald_menu_list
+] + [
+    {"브랜드": "롯데리아", **item} for item in lotteria_menu_list
+] + [
+    {"브랜드": "버거킹", **item} for item in burgerking_menu_list
+] + [
+    {"브랜드": "프랭크버거", **item} for item in frankburger_menu_list
+]
+
+# 카테고리 리스트 추출
+categories = set(item["카테고리"] for item in all_burgers) 
+
 # 사용자 입력
 user_input = input("1. 전체 버거 메뉴"
                    " 2. 롯데리아 버거 메뉴"
                    " 3. 맥도날드 버거 메뉴"
                    " 4. 버거킹 버거 메뉴"
                    " 5. 프랭크 버거 버거 메뉴"
-                    " 중에서 원하시는 메뉴를 입력하세요 : ")
+                   " 6. 랜덤 버거 추천"
+                   " 7. 카테고리 선택 후 랜덤 버거 추천"
+                   " 중에서 원하시는 메뉴를 입력하세요 : ")
+
 
 # 사용자가 입력한 값에 따라 메뉴 출력
-if user_input == "2":
+if user_input == "1":
+    print("\n📌 전체 버거 리스트:")
+    
+    all_menus = [mcdonald_menu_list, lotteria_menu_list, burgerking_menu_list, frankburger_menu_list]
+    
+    for brand_menus in all_menus:
+        for item in brand_menus:
+            print(f"메뉴: {item['메뉴 이름']}, 가격: {item['가격']}")
+
+elif user_input == "2":
     print("\n📌 롯데리아 버거 카테고리별 메뉴:")
     for category, items in lotteria_menu_by_category.items():
         print(f"\n🗂️ {category}:")
@@ -170,6 +198,26 @@ elif user_input == "5":
         print(f"\n🗂️ {category}:")
         for idx, item in enumerate(items, 1):
             print(f"  {idx}. 메뉴: {item['메뉴 이름']}, 가격: {item['가격']}")
+
+elif user_input == "6":
+    random_burger = random.choice(all_burgers)
+    print(f"\n🎉 랜덤 추천 버거: {random_burger['브랜드']}의 {random_burger['메뉴 이름']}, 가격: {random_burger['가격']}")
+
+elif user_input == "7":
+    print("\n📌 선택할 수 있는 카테고리:")
+    for idx, category in enumerate(categories, 1):
+        print(f"{idx}. {category}")
+
+    category_input = input("\n원하는 카테고리를 입력하세요: ")
+
+    # 선택된 카테고리의 버거 리스트 필터링
+    filtered_burgers = [burger for burger in all_burgers if category_input in burger["카테고리"]]
+
+    if filtered_burgers:
+        random_burger = random.choice(filtered_burgers)
+        print(f"\n🎉 랜덤 추천 버거: {random_burger['메뉴 이름']} ({random_burger['브랜드']}), 가격: {random_burger['가격']}")
+    else:
+        print("\n❌ 해당 카테고리에 맞는 버거가 없습니다. 다시 시도해 주세요.")
 
 else:
     print("\n❌ 올바른 입력이 아닙니다. 프로그램을 종료합니다.")
