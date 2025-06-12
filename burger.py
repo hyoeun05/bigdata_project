@@ -157,7 +157,7 @@ user_input = input("1. 전체 버거 메뉴"
                    " 4. 버거킹 버거 메뉴"
                    " 5. 프랭크 버거 버거 메뉴"
                    " 6. 랜덤 버거 추천"
-                   " 7. 카테고리 선택 후 랜덤 버거 추천"
+                   " 7. 선택한 카테고리 랜덤 버거 추천"
                    " 중에서 원하시는 메뉴를 입력하세요 : ")
 
 
@@ -204,7 +204,7 @@ elif user_input == "6":
     print(f"\n🎉 랜덤 추천 버거: {random_burger['브랜드']}의 {random_burger['메뉴 이름']}, 가격: {random_burger['가격']}")
 
 elif user_input == "7":
-    print("\n📌 선택할 수 있는 카테고리:")
+    print("\n📌 카테고리 리스트:")
     for idx, category in enumerate(categories, 1):
         print(f"{idx}. {category}")
 
@@ -219,7 +219,7 @@ elif user_input == "7":
 
         if filtered_burgers:
             random_burger = random.choice(filtered_burgers)
-            print(f"\n🎉 랜덤 추천 버거: {random_burger['메뉴 이름']} ({random_burger['브랜드']}), 가격: {random_burger['가격']}")
+            print(f"\n🎉 랜덤 추천 버거: {random_burger['브랜드']}의 {random_burger['메뉴 이름']}, 가격: {random_burger['가격']}")
         else:
             print("\n❌ 해당 카테고리에 맞는 버거가 없습니다. 다시 시도해 주세요.")
     else:
