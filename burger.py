@@ -150,6 +150,14 @@ all_burgers = [
 # 카테고리 리스트 추출
 categories = list(set(item["카테고리"] for item in all_burgers))
 
+# 브랜드별 전체 메뉴 정리
+brand_menus = {
+    "맥도날드": mcdonald_menu_list,
+    "롯데리아": lotteria_menu_list,
+    "버거킹": burgerking_menu_list,
+    "프랭크버거": frankburger_menu_list
+}
+
 # 사용자 입력
 user_input = input("1. 전체 버거 메뉴\n"
                    "2. 롯데리아 버거 메뉴\n"
@@ -164,13 +172,13 @@ user_input = input("1. 전체 버거 메뉴\n"
 
 # 사용자가 입력한 값에 따라 메뉴 출력
 if user_input == "1":
-    print("\n📌 전체 버거 리스트:")
-    
-    all_menus = [mcdonald_menu_list, lotteria_menu_list, burgerking_menu_list, frankburger_menu_list]
-    
-    for brand_menus in all_menus:
-        for item in brand_menus:
-            print(f"메뉴: {item['메뉴 이름']}, 가격: {item['가격']}")
+    print("\n📌 브랜드별 전체 버거 메뉴:")
+    for brand, burgers in brand_menus.items():
+        print(f"\n🛒 {brand}:")
+        for idx, burger in enumerate(burgers, 1):
+            print(f"  {idx}. 메뉴: {burger['메뉴 이름']}, 가격: {burger['가격']}")
+
+
 
 elif user_input == "2":
     print("\n📌 롯데리아 버거 카테고리별 메뉴:")
